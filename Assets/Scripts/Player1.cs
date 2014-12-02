@@ -24,7 +24,8 @@ public class Player1 : MonoBehaviour {
 
 		//360
 		//rigidbody.AddForce(new Vector3(1, 0, 0), ForceMode.VelocityChange);
-		transform.Translate(new Vector3(0, Input.GetAxis("360_P1_Vertical") * speed * Time.deltaTime, 0));
+		transform.Translate(new Vector3(0, Input.GetAxis("360_P1_X_Axis") * speed * Time.deltaTime, 0));
+		Debug.Log (Input.GetAxis("360_P1_Vertical"));
 
 		//Shoot bullet
 		if(Input.GetButtonDown("360_P1_AButton")){
