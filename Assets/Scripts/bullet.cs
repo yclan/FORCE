@@ -3,8 +3,8 @@ using System.Collections;
 
 public class bullet : MonoBehaviour {
 
-	private Vector3 initialDir = new Vector3(0, 0 ,0);
-	public bool isShot = false;
+//	private Vector3 initialDir = new Vector3(0, 0 ,0);
+//	public bool isShot = false;
 
 
 	// Use this for initialization
@@ -14,22 +14,31 @@ public class bullet : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position += initialDir;
-		//rigidbody.AddForce(initialDir, ForceMode.Impulse);
-		if(transform.position.x >= 20){
-			isShot = false;
-		}
+
+//		transform.position += initialDir;
+//		//rigidbody.AddForce(initialDir, ForceMode.Impulse);
+//		if(transform.position.x >= 20){
+//			isShot = false;
+//		}
 	}
 
-	void moveBullet(Vector3 dir){
+//	void onTriggerEnter(Collider collider){
+//		if(collider.gameObject.tag = "ball"){
+//			Material newMaterial;
+//			collider.gameObject.renderer.material = newMaterial;
+//		}
+//	}
 
-		if(!isShot){
-			initialDir = dir;
-			isShot = true;
-			Debug.Log (isShot);
-		}
 
-	}
+//	void moveBullet(Vector3 dir){
+//
+//		if(!isShot){
+//			initialDir = dir;
+//			isShot = true;
+//			Debug.Log (isShot);
+//		}
+//
+//	}
 
 //	public void wait(){
 //		isShot = true;
