@@ -27,10 +27,10 @@ public class Triangle : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collider){
 
-		//Debug.Log (collider.gameObject.renderer.material.name);
-		//Debug.Log (this.transform.parent.Find ("Mesh").gameObject.renderer.material.name);
+		//Debug.Log (collider.gameObject.renderer.material.color);
+		//Debug.Log (this.transform.parent.Find ("Mesh").gameObject.renderer.material.color);
 
-		if(this.transform.parent.Find ("Mesh").gameObject.renderer.material.name != collider.gameObject.renderer.material.name){
+		if(this.transform.parent.Find ("Mesh").gameObject.renderer.material.color != collider.gameObject.renderer.material.color){
 			this.transform.parent.gameObject.SetActive(false);
 	
 		}else{
@@ -41,17 +41,17 @@ public class Triangle : MonoBehaviour {
 
 				//Debug.Log (collider.gameObject.renderer.material.name);
 
-				if(collider.gameObject.renderer.material.name == "Mat_R (Instance)"){
+				if(collider.gameObject.renderer.material.color == Color.red){
 					CORE_3.renderer.material.color = Color.red;
 					CORE.GetComponent<P1_Core>().R += 1;
 					Debug.Log ("R = " + CORE.GetComponent<P1_Core>().R);
 				}
-				if(collider.gameObject.renderer.material.name == "Mat_G (Instance)"){
+				if(collider.gameObject.renderer.material.color == Color.green){
 					CORE_3.renderer.material.color = Color.green;
 					CORE.GetComponent<P1_Core>().G += 1;
 					Debug.Log ("G = " + CORE.GetComponent<P1_Core>().G);
 				}
-				if(collider.gameObject.renderer.material.name == "Mat_B (Instance)"){
+				if(collider.gameObject.renderer.material.color == Color.blue){
 					CORE_3.renderer.material.color = Color.blue;
 					CORE.GetComponent<P1_Core>().B += 1;
 					Debug.Log ("B = " + CORE.GetComponent<P1_Core>().B);
@@ -63,17 +63,17 @@ public class Triangle : MonoBehaviour {
 
 			if(Core_Order == 2){
 				
-				if(collider.gameObject.renderer.material.name == "Mat_R (Instance)"){
+				if(collider.gameObject.renderer.material.color == Color.red){
 					CORE_2.renderer.material.color = Color.red;
 					CORE.GetComponent<P1_Core>().R += 1;
 					Debug.Log ("R = " + CORE.GetComponent<P1_Core>().R);
 				}
-				if(collider.gameObject.renderer.material.name == "Mat_G (Instance)"){
+				if(collider.gameObject.renderer.material.color == Color.green){
 					CORE_2.renderer.material.color = Color.green;
 					CORE.GetComponent<P1_Core>().G += 1;
 					Debug.Log ("G = " + CORE.GetComponent<P1_Core>().G);
 				}
-				if(collider.gameObject.renderer.material.name == "Mat_B (Instance)"){
+				if(collider.gameObject.renderer.material.color == Color.blue){
 					CORE_2.renderer.material.color = Color.blue;
 					CORE.GetComponent<P1_Core>().B += 1;
 					Debug.Log ("B = " + CORE.GetComponent<P1_Core>().B);
@@ -85,17 +85,17 @@ public class Triangle : MonoBehaviour {
 
 			if(Core_Order == 1){
 	
-				if(collider.gameObject.renderer.material.name == "Mat_R (Instance)"){
+				if(collider.gameObject.renderer.material.color == Color.red){
 					CORE_1.renderer.material.color = Color.red;
 					CORE.GetComponent<P1_Core>().R += 1;
 					Debug.Log ("R = " + CORE.GetComponent<P1_Core>().R);
 				}
-				if(collider.gameObject.renderer.material.name == "Mat_G (Instance)"){
+				if(collider.gameObject.renderer.material.color == Color.green){
 					CORE_1.renderer.material.color = Color.green;
 					CORE.GetComponent<P1_Core>().G += 1;
 					Debug.Log ("G = " + CORE.GetComponent<P1_Core>().G);
 				}
-				if(collider.gameObject.renderer.material.name == "Mat_B (Instance)"){
+				if(collider.gameObject.renderer.material.color == Color.blue){
 					CORE_1.renderer.material.color = Color.blue;
 					CORE.GetComponent<P1_Core>().B += 1;
 					Debug.Log ("B = " + CORE.GetComponent<P1_Core>().B);
@@ -115,9 +115,9 @@ public class Triangle : MonoBehaviour {
 
 	public void powerUP(int r, int g, int b){
 
-		CORE_1.renderer.material.color = Color.white;
-		CORE_2.renderer.material.color = Color.white;
-		CORE_3.renderer.material.color = Color.white;
+//		CORE_1.renderer.material.color = Color.white;
+//		CORE_2.renderer.material.color = Color.white;
+//		CORE_3.renderer.material.color = Color.white;
 		
 		if(r != 3 && g != 3 && b != 3 && (r == 0 || g == 0 || b == 0)){
 			//60% chance of getting a random color block back

@@ -4,21 +4,24 @@ using System.Collections;
 
 public class Ball : MonoBehaviour {
 
-	public float spd = 1;
-	public float speedX;
-	public float speedY;
-	public float spdAdjust = 12;
-	public float maxSpd = 8;
-	public float minSpd = 3;
-	public float modSpeed = 20;
-
-	public int color_order = 0;
+	public float spd;
+	public float dirX;
+	public float dirY;
+	public float spdAdjust;
+	public float maxSpd;
+	public float minSpd;
+	public float modSpeed;
 
 
 	// Use this for initialization
 	void Start () {
 
-		Debug.Log (this.gameObject.renderer.material.name);
+		spd = 500;
+		spdAdjust = 12;
+		maxSpd = 10;
+		minSpd = 9;
+		modSpeed = 20;
+
 		Reset ();
 	
 	}
@@ -54,15 +57,25 @@ public class Ball : MonoBehaviour {
 
 	public void Reset(){
 
-		speedX = Random.Range(0, 2) == 0 ? -spd : spd;
-		speedY = Random.Range(0, 2) == 0 ? -spd : spd;
+		dirX = Random.Range(0, 2) == 0 ? -spd : spd;
+		dirY = Random.Range(0, 2) == 0 ? -spd : spd;
 
 		transform.position = new Vector3(0, 0, 0);
-		rigidbody.AddForce(new Vector3(Random.Range(2, 4) * speedX * Time.deltaTime, Random.Range(1, 2) * speedY * Time.deltaTime, 0), ForceMode.VelocityChange);
-		//rigidbody.velocity = new Vector3(speedX * Time.deltaTime, speedY * Time.deltaTime, 0);
-
-
+		rigidbody.AddForce(new Vector3(Random.Range(2, 4) * dirX * Time.deltaTime, Random.Range(1, 2) * dirY * Time.deltaTime, 0), ForceMode.VelocityChange);
+		//rigidbody.velocity = new Vector3(dirX * Time.deltaTime, dirY * Time.deltaTime, 0);
 		//rigidbody.AddForce(new Vector3(Random.Range(speed, -speed) * Time.deltaTime, Random.Range(speed, -speed) * Time.deltaTime, 0), ForceMode.Impulse);
+
+		//Randomize ball's initial color
+		int ranColor = Random.Range(1,4);
+		Debug.Log (ranColor);
+		if(ranColor == 1){
+			this.renderer.material.color = Color.red;
+		}else if(ranColor == 2){
+			this.renderer.material.color = Color.green;
+		}else{
+			this.renderer.material.color = Color.blue;
+		}
+
 	}
 
 
@@ -110,10 +123,15 @@ public class Ball : MonoBehaviour {
 			Debug.Log ("VelY = " + rigidbody.velocity.y);
 		}
 
-//		if(collision.collider.transform.parent.name = "Boundary"){
+		//Change Color every time hitting walls
+//		if(collision.collider.tag == "wall"){
 //
-//			if(){
-//
+//			if(this.renderer.material.color == Color.red){
+//				this.renderer.material.color = Color.green;
+//			}else if(this.renderer.material.color == Color.green){
+//				this.renderer.material.color = Color.blue;
+//			}else{
+//				this.renderer.material.color = Color.red;
 //			}
 //
 //		}
