@@ -124,17 +124,17 @@ public class Ball : MonoBehaviour {
 		}
 
 		//Change Color every time hitting walls
-//		if(collision.collider.tag == "wall"){
-//
-//			if(this.renderer.material.color == Color.red){
-//				this.renderer.material.color = Color.green;
-//			}else if(this.renderer.material.color == Color.green){
-//				this.renderer.material.color = Color.blue;
-//			}else{
-//				this.renderer.material.color = Color.red;
-//			}
-//
-//		}
+		if(collision.collider.tag == "wall"){
+
+			if(this.renderer.material.color == Color.red){
+				this.renderer.material.color = Color.green;
+			}else if(this.renderer.material.color == Color.green){
+				this.renderer.material.color = Color.blue;
+			}else{
+				this.renderer.material.color = Color.red;
+			}
+
+		}
 
 	}
 

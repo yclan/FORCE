@@ -10,18 +10,20 @@ public class Triangle : MonoBehaviour {
 	public GameObject CORE_2;
 	public GameObject CORE_3;
 
-	public int Core_Order;
+	//Use NonSerialized before the line of clarification can also make it invisible in the editor
+	//[System.NonSerialized]  
+	private int Core_Order;
 
 	// Use this for initialization
 	void Start () {
 
-		Core_Order = 3;
+		Core_Order = 4;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		//Debug.Log (CORE.GetComponent<P1_Core>().R);
+		Debug.Log (Core_Order);
 	
 	}
 
@@ -30,11 +32,16 @@ public class Triangle : MonoBehaviour {
 		//Debug.Log (collider.gameObject.renderer.material.color);
 		//Debug.Log (this.transform.parent.Find ("Mesh").gameObject.renderer.material.color);
 
+
+		//When in different colors
 		if(this.transform.parent.Find ("Mesh").gameObject.renderer.material.color != collider.gameObject.renderer.material.color){
 			this.transform.parent.gameObject.SetActive(false);
 	
 		}else{
 
+			//When in the same color
+
+			Core_Order -= 1;
 
 			if(Core_Order == 3){
 
@@ -102,12 +109,10 @@ public class Triangle : MonoBehaviour {
 				}
 
 				Debug.Log("Core Order = " + Core_Order);
-				Core_Order = 4;
+				//Send R, G, B to powerUP() function
 				powerUP(CORE.GetComponent<P1_Core>().R, CORE.GetComponent<P1_Core>().G, CORE.GetComponent<P1_Core>().B);
 				
 			}
-
-			Core_Order -= 1;
 
 		}
 
@@ -118,6 +123,8 @@ public class Triangle : MonoBehaviour {
 //		CORE_1.renderer.material.color = Color.white;
 //		CORE_2.renderer.material.color = Color.white;
 //		CORE_3.renderer.material.color = Color.white;
+
+		Core_Order = 4;
 		
 		if(r != 3 && g != 3 && b != 3 && (r == 0 || g == 0 || b == 0)){
 			//60% chance of getting a random color block back
@@ -127,8 +134,11 @@ public class Triangle : MonoBehaviour {
 			
 			//40% chance of getting a power up
 			if(r == 1 && g == 1 && b == 1){
+
 				//Get a blocking shield
+				this.transform.parent.Find ("Shield (Off)").gameObject.SetActive(true);
 				Debug.Log ("Get a Blocking Shield");
+
 				//CORE_1.renderer.material.SetTexture();
 				
 			}else if(r == 3){
