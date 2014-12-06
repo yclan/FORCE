@@ -10,13 +10,15 @@ public class Ball : MonoBehaviour {
 	public float spdAdjust = 12;
 	public float maxSpd = 8;
 	public float minSpd = 3;
-
 	public float modSpeed = 20;
+
+	public int color_order = 0;
 
 
 	// Use this for initialization
 	void Start () {
 
+		Debug.Log (this.gameObject.renderer.material.name);
 		Reset ();
 	
 	}
@@ -107,6 +109,14 @@ public class Ball : MonoBehaviour {
 			Debug.Log ("VelX = " + rigidbody.velocity.x);
 			Debug.Log ("VelY = " + rigidbody.velocity.y);
 		}
+
+//		if(collision.collider.transform.parent.name = "Boundary"){
+//
+//			if(){
+//
+//			}
+//
+//		}
 
 	}
 
