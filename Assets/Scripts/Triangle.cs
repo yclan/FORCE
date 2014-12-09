@@ -10,20 +10,15 @@ public class Triangle : MonoBehaviour {
 	public GameObject CORE_2;
 	public GameObject CORE_3;
 
-	//Use NonSerialized before the line of clarification can also make it invisible in the editor
-	//[System.NonSerialized]  
-	private int Core_Order;
-
 	// Use this for initialization
 	void Start () {
-
-		Core_Order = 4;
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		Debug.Log (Core_Order);
+		//Debug.Log (Core_Order);
 	
 	}
 
@@ -41,10 +36,8 @@ public class Triangle : MonoBehaviour {
 
 			//When in the same color
 
-			Core_Order -= 1;
-
-			if(Core_Order == 3){
-
+			//The outter core
+			if(CORE.GetComponent<P1_Core>().Core_Order == 3){
 
 				//Debug.Log (collider.gameObject.renderer.material.name);
 
@@ -63,12 +56,10 @@ public class Triangle : MonoBehaviour {
 					CORE.GetComponent<P1_Core>().B += 1;
 					Debug.Log ("B = " + CORE.GetComponent<P1_Core>().B);
 				}
-
-				Debug.Log("Core Order = " + Core_Order);
 				
 			}
 
-			if(Core_Order == 2){
+			if(CORE.GetComponent<P1_Core>().Core_Order == 2){
 				
 				if(collider.gameObject.renderer.material.color == Color.red){
 					CORE_2.renderer.material.color = Color.red;
@@ -85,12 +76,10 @@ public class Triangle : MonoBehaviour {
 					CORE.GetComponent<P1_Core>().B += 1;
 					Debug.Log ("B = " + CORE.GetComponent<P1_Core>().B);
 				}
-
-				Debug.Log("Core Order = " + Core_Order);
 				
 			}
 
-			if(Core_Order == 1){
+			if(CORE.GetComponent<P1_Core>().Core_Order == 1){
 	
 				if(collider.gameObject.renderer.material.color == Color.red){
 					CORE_1.renderer.material.color = Color.red;
@@ -108,55 +97,48 @@ public class Triangle : MonoBehaviour {
 					Debug.Log ("B = " + CORE.GetComponent<P1_Core>().B);
 				}
 
-				Debug.Log("Core Order = " + Core_Order);
 				//Send R, G, B to powerUP() function
 				powerUP(CORE.GetComponent<P1_Core>().R, CORE.GetComponent<P1_Core>().G, CORE.GetComponent<P1_Core>().B);
 				
 			}
 
+			CORE.GetComponent<P1_Core>().Core_Order -= 1;
 		}
 
 	}
+	
 
 	public void powerUP(int r, int g, int b){
 
-//		CORE_1.renderer.material.color = Color.white;
-//		CORE_2.renderer.material.color = Color.white;
-//		CORE_3.renderer.material.color = Color.white;
+		CORE_1.renderer.material.color = Color.white;
+		CORE_2.renderer.material.color = Color.white;
+		CORE_3.renderer.material.color = Color.white;
 
-		Core_Order = 4;
+		CORE.GetComponent<P1_Core>().Core_Order = 4;
 		
-		if(r != 3 && g != 3 && b != 3 && (r == 0 || g == 0 || b == 0)){
-			//60% chance of getting a random color block back
-			Debug.Log ("Get a Color Block");
-			
-		}else{
-			
-			//40% chance of getting a power up
-			if(r == 1 && g == 1 && b == 1){
+		if(r == 3 || g == 3 || b == 3){
+			//Get a Power-Up
+			CORE.transform.Find ("PowerUp").gameObject.SetActive(false);
+			CORE.transform.Find ("PowerUp").gameObject.SetActive(true);
 
-				//Get a blocking shield
-				this.transform.parent.Find ("Shield (Off)").gameObject.SetActive(true);
-				Debug.Log ("Get a Blocking Shield");
+			CORE.GetComponent<P1_Core>().R = 0;
+			CORE.GetComponent<P1_Core>().G = 0;
+			CORE.GetComponent<P1_Core>().B = 0;
 
-				//CORE_1.renderer.material.SetTexture();
-				
-			}else if(r == 3){
-				Debug.Log ("Get a Color Gun");
-				//Get a Color Gun 
-				
-			}else if(g == 3){
-				Debug.Log ("Get a Color Shield");
-				//Get a Color shield
-				
-			}else if(b == 3){
-				Debug.Log ("Get a Magnet");
-				//Get a Magnet
-			}
+			Debug.Log ("Get a Power-Up");
+			
 		}
 
-		CORE.GetComponent<P1_Core>().R = 0;
-		CORE.GetComponent<P1_Core>().G = 0;
-		CORE.GetComponent<P1_Core>().B = 0;
+		if(r == 1 && g == 1 && b == 1){
+			//Get a Weapon
+			CORE.transform.Find ("Weapon").gameObject.SetActive(false);
+			CORE.transform.Find ("Weapon").gameObject.SetActive(true);
+
+			CORE.GetComponent<P1_Core>().R = 0;
+			CORE.GetComponent<P1_Core>().G = 0;
+			CORE.GetComponent<P1_Core>().B = 0;
+
+			Debug.Log ("Get a Weapon");
+		}
 	}
 }

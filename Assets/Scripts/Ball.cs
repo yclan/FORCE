@@ -4,23 +4,24 @@ using System.Collections;
 
 public class Ball : MonoBehaviour {
 
-	public float spd;
-	public float dirX;
-	public float dirY;
-	public float spdAdjust;
-	public float maxSpd;
-	public float minSpd;
-	public float modSpeed;
+	private float spd;
+	private float dirX;
+	private float dirY;
+	private float spdAdjust;
+	private float maxSpd;
+	private float minSpd;
+	private float modSpeed;
 
+	public Vector3 newLoc;
 
 	// Use this for initialization
 	void Start () {
 
 		spd = 500;
 		spdAdjust = 12;
-		maxSpd = 10;
-		minSpd = 9;
-		modSpeed = 20;
+		//maxSpd = 10;
+		minSpd = 8;
+		//modSpeed = 20;
 
 		Reset ();
 	
@@ -60,7 +61,7 @@ public class Ball : MonoBehaviour {
 		dirX = Random.Range(0, 2) == 0 ? -spd : spd;
 		dirY = Random.Range(0, 2) == 0 ? -spd : spd;
 
-		transform.position = new Vector3(0, 0, 0);
+		//transform.position = new Vector3(0, 0, 0);
 		rigidbody.AddForce(new Vector3(Random.Range(2, 4) * dirX * Time.deltaTime, Random.Range(1, 2) * dirY * Time.deltaTime, 0), ForceMode.VelocityChange);
 		//rigidbody.velocity = new Vector3(dirX * Time.deltaTime, dirY * Time.deltaTime, 0);
 		//rigidbody.AddForce(new Vector3(Random.Range(speed, -speed) * Time.deltaTime, Random.Range(speed, -speed) * Time.deltaTime, 0), ForceMode.Impulse);
@@ -77,6 +78,34 @@ public class Ball : MonoBehaviour {
 		}
 
 	}
+
+	public void SetR(){
+		this.renderer.material.color = Color.red;
+	}
+
+	public void SetG(){
+		this.renderer.material.color = Color.green;
+	}
+
+	public void SetB(){
+		Debug.Log("Set ball's color to blue");
+		this.renderer.material.color = Color.blue;
+	}
+//
+//	public void Shoot(int x, int y, int z){
+//
+//		//Detach the ball from the shield
+//
+//		//Rigidbody awakes
+//		this.rigidbody.WakeUp();
+//
+//		//Give direction
+//		rigidbody.AddForce(new Vector3(x * Time.deltaTime, y * Time.deltaTime, 0), ForceMode.VelocityChange);
+//
+////		spd = 500;
+////		spdAdjust = 12;
+////		minSpd = 8;
+//	}
 
 
 	public void OnCollisionEnter(Collision collision){
@@ -124,17 +153,34 @@ public class Ball : MonoBehaviour {
 		}
 
 		//Change Color every time hitting walls
-		if(collision.collider.tag == "wall"){
+//		if(collision.collider.tag == "wall"){
+//
+//			if(this.renderer.material.color == Color.red){
+//				this.renderer.material.color = Color.green;
+//			}else if(this.renderer.material.color == Color.green){
+//				this.renderer.material.color = Color.blue;
+//			}else{
+//				this.renderer.material.color = Color.red;
+//			}
+//
+//		}
 
-			if(this.renderer.material.color == Color.red){
-				this.renderer.material.color = Color.green;
-			}else if(this.renderer.material.color == Color.green){
-				this.renderer.material.color = Color.blue;
-			}else{
-				this.renderer.material.color = Color.red;
-			}
-
-		}
+//		if(collision.collider.tag == "magnet"){
+//
+//			this.rigidbody.Sleep();  //Rigidbody sleeps
+//			newLoc = this.transform.position;  //Record this position
+//			this.gameObject.SetActive(false);
+//			//GameObject newBall;
+//			//newBall = (GameObject)Instantiate(Ball, transform.position, transform.rotation);
+//
+//
+//
+//
+//			//Attach the ball to the shield
+//			collider.transform = transform;
+//			this.transform.parent = transform;
+//			this.transform.position = collider.transform.position;
+//		}
 
 	}
 
