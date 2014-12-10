@@ -10,6 +10,8 @@ public class Triangle : MonoBehaviour {
 	public GameObject CORE_2;
 	public GameObject CORE_3;
 
+	public GameObject CameraShake;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -30,7 +32,11 @@ public class Triangle : MonoBehaviour {
 
 		//When in different colors
 		if(this.transform.parent.Find ("Mesh").gameObject.renderer.material.color != collider.gameObject.renderer.material.color){
+			//Toggle off slef
 			this.transform.parent.gameObject.SetActive(false);
+
+			//Camera shake
+			CameraShake.gameObject.SetActive(true);
 	
 		}else{
 
@@ -119,7 +125,7 @@ public class Triangle : MonoBehaviour {
 		if(r == 3 || g == 3 || b == 3){
 			//Get a Power-Up
 			CORE.transform.Find ("PowerUp").gameObject.SetActive(false);
-			CORE.transform.Find ("PowerUp").gameObject.SetActive(true);
+			CORE.transform.Find ("Random").gameObject.SetActive(true);
 
 			CORE.GetComponent<P1_Core>().R = 0;
 			CORE.GetComponent<P1_Core>().G = 0;
@@ -132,7 +138,7 @@ public class Triangle : MonoBehaviour {
 		if(r == 1 && g == 1 && b == 1){
 			//Get a Weapon
 			CORE.transform.Find ("Weapon").gameObject.SetActive(false);
-			CORE.transform.Find ("Weapon").gameObject.SetActive(true);
+			CORE.transform.Find ("Random").gameObject.SetActive(true);
 
 			CORE.GetComponent<P1_Core>().R = 0;
 			CORE.GetComponent<P1_Core>().G = 0;
