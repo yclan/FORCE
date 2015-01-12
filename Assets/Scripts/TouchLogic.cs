@@ -3,60 +3,55 @@ using System.Collections;
 
 public class TouchLogic : MonoBehaviour 
 {
-	public static int currTouch = 0;//so other scripts can know what touch is currently on screen
+	public LayerMask touchInputMask;
+
 	private Ray ray;//this will be the ray that we cast from our touch into the scene
-	private RaycastHit rayHitInfo = new RaycastHit();//return the info of the object that was hit by the ray
-	[HideInInspector]
-	public int touch2Watch = 64;
+
+	//private List<GameObject> touchList = new List<GameObject>();
+	//private GameObject[] touchesOld;
 	
 	void Update () 
 	{
-		//is there a touch on screen?
-		if(Input.touches.Length <= 0)
+		if(Input.touchCount > 0)
 		{
-			//if no touches then execute this code
-		}
-		else //if there is a touch
-		{
-			//loop through all the the touches on screen
-			for(int i = 0; i < Input.touchCount; i++)
-			{
-				currTouch = i;
-				//Debug.Log(currTouch);
+			//touchesOld = new GameObject[touchList.Count];
+			//touchList.CopyTo(touchesOld);
+			//touchList.Clear();
 
-				ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);//creates ray from screen point position
-				switch(Input.GetTouch(i).phase)
+			foreach (Touch touch in Input.touches)
+			{
+				ray = camera.ScreenPointToRay(touch.position);
+				RaycastHit rayHit;
+
+				if(Physics.Raycast(ray, out rayHit, touchInputMask))
 				{
-				case TouchPhase.Began:
-					//OnTouchBeganAnywhere();
-					//this.SendMessage("OnTouchBeganAnyWhere");
-					if(Physics.Raycast(ray, out rayHitInfo))
-						rayHitInfo.transform.gameObject.SendMessage("OnTouchBegan3D");
-						//Debug.Log (rayHitInfo.transform.gameObject);
-					break;
-				case TouchPhase.Ended:
-					//OnTouchEndedAnywhere();
-					//this.SendMessage("OnTouchEndedAnywhere");
-					if(Physics.Raycast(ray, out rayHitInfo))
-						rayHitInfo.transform.gameObject.SendMessage("OnTouchEnded3D");
-						//Debug.Log (rayHitInfo.transform.gameObject);
-					break;
-				case TouchPhase.Moved:
-					//OnTouchMovedAnywhere();
-					//this.SendMessage("OnTouchMovedAnywhere");
-					if(Physics.Raycast(ray, out rayHitInfo))
-						rayHitInfo.transform.gameObject.SendMessage("OnTouchMoved3D");
-						//Debug.Log (rayHitInfo.transform.gameObject);
-					break;
-				case TouchPhase.Stationary:
-					//OnTouchStayedAnywhere();
-					//this.SendMessage("OnTouchStayedAnywhere");
-					if(Physics.Raycast(ray, out rayHitInfo))
-						rayHitInfo.transform.gameObject.SendMessage("OnTouchStayed3D");
-						//Debug.Log (rayHitInfo.transform.gameObject);
-					break;
+					GameObject recipient = rayHit.transform.gameObject;
+
+					if(touch.phase == TouchPhase.Began)
+					{
+						recipient.SendMessage("OnTouchDown", rayHit.point, SendMessageOptions.DontRequireReceiver);
+					}
+					if(touch.phase == TouchPhase.Ended)
+					{
+						recipient.SendMessage("OnTouchUp", rayHit.point, SendMessageOptions.DontRequireReceiver);
+					}
+					if(touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
+					{
+						recipient.SendMessage("OnTouchStay", rayHit.point, SendMessageOptions.DontRequireReceiver);
+					}
+					if(touch.phase == TouchPhase.Canceled)
+					{
+						recipient.SendMessage("OnTouchExit", rayHit.point, SendMessageOptions.DontRequireReceiver);
+					}
 				}
 			}
+			/*
+			foreach (GameObject g in touchesOld)
+			{
+				if(!touchList.Contains(g))
+					g.SendMessage("OnTouchExit", rayHit.point, SendMessageOptions.DontRequireReceiver);
+			}
+			*/
 		}
 	}
 }
